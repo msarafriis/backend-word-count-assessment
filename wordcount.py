@@ -55,7 +55,7 @@ import sys
 
 def ver_check():
     if sys.version_info[0] < 3 and sys.version_info[1] < 6:
-        print('This program is not supported.')
+        except('This program is not supported.')
 
 
 def main():
