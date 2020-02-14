@@ -40,6 +40,7 @@ print_words() and print_top().
 """
 
 import sys
+import re
 
 # +++your code here+++
 # Define print_words(filename) and print_top(filename) functions.
@@ -54,7 +55,17 @@ def ver_check():
 
 
 def print_words(filename):
-    pass
+    with open(filename, 'r') as text:
+        words = re.sub("[^\w]", " ", text.read()).split()
+        found_words = {}
+        for word in words:
+            try:
+                found_words[word.lower()]
+            except:
+                found_words[word.lower()] = 0
+            found_words[word.lower()] += 1
+        for word in found_words:
+            print("{}: {}".format(word, found_words[word]))
 
 
 def print_top(filename):
