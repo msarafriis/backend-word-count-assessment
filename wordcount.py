@@ -54,22 +54,31 @@ def ver_check():
         raise Exception('This program is not supported. Python 3 is required.')
 
 
+def word_finder(word_list):
+    found_words = {}
+    for word in word_list:
+        try:
+            found_words[word.lower()]
+        except:
+            found_words[word.lower()] = 0
+        found_words[word.lower()] += 1
+    return found_words
+
+
 def print_words(filename):
     with open(filename, 'r') as text:
         words = re.sub("[^\w]", " ", text.read()).split()
-        found_words = {}
-        for word in words:
-            try:
-                found_words[word.lower()]
-            except:
-                found_words[word.lower()] = 0
-            found_words[word.lower()] += 1
+        found_words = word_finder(words)
         for word in found_words:
             print("{}: {}".format(word, found_words[word]))
 
 
 def print_top(filename):
-    pass
+    with open(filename, 'r') as text:
+        words = re.sub("[^\w]", " ", text.read()).split()
+        found_words = word_finder(words)
+        for word in found_words:
+            print("{}: {}".format(word, found_words[word]))
 
 ###
 
