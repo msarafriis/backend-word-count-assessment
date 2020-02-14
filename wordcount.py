@@ -79,6 +79,7 @@ def print_top(filename):
         found_words = word_finder(words)
         top_words = [(word, count) for word, count in sorted(
             found_words.items(), key=lambda item: item[1])][::-1][:20]
+        # https://stackoverflow.com/a/613218
         for pair in top_words:
             print("{}: {}".format(pair[0], pair[1]))
 
