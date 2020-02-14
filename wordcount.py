@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
 # Copyright 2010 Google Inc.
@@ -40,12 +40,51 @@ print_words() and print_top().
 """
 
 import sys
+import re
 
 # +++your code here+++
 # Define print_words(filename) and print_top(filename) functions.
 # You could write a helper utility function that reads a file
 # and builds and returns a word/count dict for it.
 # Then print_words() and print_top() can just call the utility function.
+
+
+def ver_check():
+    if sys.version_info[0] < 3:
+        raise Exception('Python 2 is unsupported. Python 3 is required.')
+
+
+def word_finder(word_list):
+    found_words = {}
+    for word in word_list:
+        try:
+            found_words[word.lower()]
+        except:
+            found_words[word.lower()] = 0
+        found_words[word.lower()] += 1
+    return found_words
+
+
+def print_words(filename):
+    with open(filename, 'r') as text:
+        words = re.sub("[^\w]", " ", text.read()).split()
+        # use of regex inspired by https://stackoverflow.com/a/6181784
+        found_words = word_finder(words)
+        for word in found_words:
+            print("{}: {}".format(word, found_words[word]))
+
+
+def print_top(filename):
+    with open(filename, 'r') as text:
+        words = re.sub("[^\w]", " ", text.read()).split()
+        # use of regex inspired by https://stackoverflow.com/a/6181784
+        found_words = word_finder(words)
+        top_words = [(word, count) for word, count in sorted(
+            found_words.items(), key=lambda item: item[1])][::-1][:20]
+        # above inspired by https://stackoverflow.com/a/613218
+        print("Top 20 words in {}\n".format(filename))
+        for pair in top_words:
+            print("{}: {}".format(pair[0], pair[1]))
 
 ###
 
@@ -55,7 +94,7 @@ import sys
 
 def main():
     if len(sys.argv) != 3:
-        print 'usage: python wordcount.py {--count | --topcount} file'
+        print('usage: python wordcount.py {--count | --topcount} file')
         sys.exit(1)
 
     option = sys.argv[1]
@@ -65,9 +104,10 @@ def main():
     elif option == '--topcount':
         print_top(filename)
     else:
-        print 'unknown option: ' + option
+        print('unknown option: ' + option)
         sys.exit(1)
 
 
 if __name__ == '__main__':
+    ver_check()
     main()
