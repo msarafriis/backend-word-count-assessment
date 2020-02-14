@@ -77,8 +77,10 @@ def print_top(filename):
     with open(filename, 'r') as text:
         words = re.sub("[^\w]", " ", text.read()).split()
         found_words = word_finder(words)
-        for word in found_words:
-            print("{}: {}".format(word, found_words[word]))
+        top_words = [(word, count) for word, count in sorted(
+            found_words.items(), key=lambda item: item[1])][::-1][:20]
+        for pair in top_words:
+            print("{}: {}".format(pair[0], pair[1]))
 
 ###
 
