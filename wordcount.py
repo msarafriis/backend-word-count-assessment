@@ -51,7 +51,7 @@ import re
 
 def ver_check():
     if sys.version_info[0] < 3:
-        raise Exception('This program is not supported. Python 3 is required.')
+        raise Exception('Python 2 is unsupported. Python 3 is required.')
 
 
 def word_finder(word_list):
@@ -92,7 +92,6 @@ def print_top(filename):
 
 
 def main():
-    ver_check()
     if len(sys.argv) != 3:
         print('usage: python wordcount.py {--count | --topcount} file')
         sys.exit(1)
@@ -109,4 +108,5 @@ def main():
 
 
 if __name__ == '__main__':
+    ver_check()
     main()
