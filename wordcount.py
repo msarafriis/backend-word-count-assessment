@@ -47,18 +47,27 @@ import sys
 # and builds and returns a word/count dict for it.
 # Then print_words() and print_top() can just call the utility function.
 
+
+def ver_check():
+    if sys.version_info[0] < 3:
+        raise Exception('This program is not supported. Python 3 is required.')
+
+
+def print_words(filename):
+    pass
+
+
+def print_top(filename):
+    pass
+
 ###
 
 # This basic command line argument parsing code is provided and
 # calls the print_words() and print_top() functions which you must define.
 
 
-def ver_check():
-    if sys.version_info[0] < 3 and sys.version_info[1] < 6:
-        except('This program is not supported.')
-
-
 def main():
+    ver_check()
     if len(sys.argv) != 3:
         print('usage: python wordcount.py {--count | --topcount} file')
         sys.exit(1)
@@ -75,5 +84,4 @@ def main():
 
 
 if __name__ == '__main__':
-    ver_check()
     main()
