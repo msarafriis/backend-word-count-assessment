@@ -82,6 +82,7 @@ def print_top(filename):
         top_words = [(word, count) for word, count in sorted(
             found_words.items(), key=lambda item: item[1])][::-1][:20]
         # above inspired by https://stackoverflow.com/a/613218
+        print("Top 20 words in {}\n".format(filename))
         for pair in top_words:
             print("{}: {}".format(pair[0], pair[1]))
 
